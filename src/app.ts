@@ -19,9 +19,9 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  express.static(path.join(__dirname, "../public/index.htlm"), { maxAge: 31557600000 })
-);
+app.use("*", (req, res) => {
+  res.sendfile(path.resolve(__dirname, "public/index.htlm"));
+});
 
 connectDB();
 
