@@ -19,9 +19,6 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("*", (req, res) => {
-  res.sendfile(path.resolve(__dirname, "public/dist/index.htlm"));
-});
 
 connectDB();
 
@@ -32,5 +29,9 @@ loadApiEndpoints(app);
 userRoute(app);
 fileRoute(app);
 authRoute(app);
+
+app.use("*", (req, res) => {
+  res.sendfile(path.resolve(__dirname, "public/index.html"));
+});
 
 export default app;
