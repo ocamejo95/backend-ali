@@ -20,7 +20,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-  express.static(path.join(__dirname, "../public"), { maxAge: 31557600000 })
+  express.static(path.join(__dirname, "../public/index.htlm"), { maxAge: 31557600000 })
 );
 
 connectDB();
