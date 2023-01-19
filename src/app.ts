@@ -25,6 +25,9 @@ app.use("*", (req, res) => {
 
 connectDB();
 
+//Directorio publico
+app.use(express.static("public"));
+
 loadApiEndpoints(app);
 userRoute(app);
 fileRoute(app);
