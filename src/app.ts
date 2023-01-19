@@ -20,7 +20,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("*", (req, res) => {
-  res.sendfile(path.resolve(__dirname, "public/index.htlm"));
+  res.sendfile(path.resolve(__dirname, "public/dist/index.htlm"));
 });
 
 connectDB();
