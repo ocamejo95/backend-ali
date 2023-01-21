@@ -22,9 +22,7 @@ class UserService {
         this.http = http;
     }
     getAllUser() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user`, {
-            headers: { 'x-token': this.token },
-        });
+        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user`);
     }
     getUserById(id) {
         return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/${id}`);

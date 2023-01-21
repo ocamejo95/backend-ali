@@ -4589,16 +4589,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppModule": () => (/* binding */ AppModule)
 /* harmony export */ });
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser */ 50318);
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser/animations */ 73598);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ 28784);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/platform-browser */ 50318);
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser/animations */ 73598);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ 28784);
 /* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./@core/core.module */ 43127);
 /* harmony import */ var _theme_theme_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./@theme/theme.module */ 80268);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component */ 55041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ 90158);
-/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @nebular/theme */ 68253);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 36362);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @nebular/theme */ 68253);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 36362);
+/* harmony import */ var _auth_services_auth_interceptor_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth/services/auth-interceptor.service */ 32610);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 3184);
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -4617,31 +4618,70 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 class AppModule {
 }
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
-AppModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent] });
-AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({ providers: [{ provide: _angular_common__WEBPACK_IMPORTED_MODULE_5__.APP_BASE_HREF, useValue: '/app' }], imports: [[
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__.BrowserModule,
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__.BrowserAnimationsModule,
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_8__.HttpClientModule,
+AppModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent] });
+AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ providers: [
+        {
+            provide: _angular_common__WEBPACK_IMPORTED_MODULE_6__.APP_BASE_HREF,
+            useValue: '/app',
+        },
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__.HTTP_INTERCEPTORS,
+            useClass: _auth_services_auth_interceptor_service__WEBPACK_IMPORTED_MODULE_4__.AuthInterceptorService,
+            multi: true,
+        }
+    ], imports: [[
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__.BrowserModule,
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__.BrowserAnimationsModule,
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_7__.HttpClientModule,
             _app_routing_module__WEBPACK_IMPORTED_MODULE_3__.AppRoutingModule,
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbSidebarModule.forRoot(),
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbMenuModule.forRoot(),
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbDatepickerModule.forRoot(),
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbDialogModule.forRoot(),
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbWindowModule.forRoot(),
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbToastrModule.forRoot(),
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbChatModule.forRoot({
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbSidebarModule.forRoot(),
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbMenuModule.forRoot(),
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbDatepickerModule.forRoot(),
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbDialogModule.forRoot(),
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbWindowModule.forRoot(),
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbToastrModule.forRoot(),
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbChatModule.forRoot({
                 messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
             }),
             _core_core_module__WEBPACK_IMPORTED_MODULE_0__.CoreModule.forRoot(),
             _theme_theme_module__WEBPACK_IMPORTED_MODULE_1__.ThemeModule.forRoot(),
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__.BrowserModule,
-        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__.BrowserAnimationsModule,
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_8__.HttpClientModule,
-        _app_routing_module__WEBPACK_IMPORTED_MODULE_3__.AppRoutingModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbSidebarModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbMenuModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbDatepickerModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbDialogModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbWindowModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbToastrModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_9__.NbChatModule, _core_core_module__WEBPACK_IMPORTED_MODULE_0__.CoreModule, _theme_theme_module__WEBPACK_IMPORTED_MODULE_1__.ThemeModule] }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__.BrowserModule,
+        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__.BrowserAnimationsModule,
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_7__.HttpClientModule,
+        _app_routing_module__WEBPACK_IMPORTED_MODULE_3__.AppRoutingModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbSidebarModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbMenuModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbDatepickerModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbDialogModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbWindowModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbToastrModule, _nebular_theme__WEBPACK_IMPORTED_MODULE_10__.NbChatModule, _core_core_module__WEBPACK_IMPORTED_MODULE_0__.CoreModule, _theme_theme_module__WEBPACK_IMPORTED_MODULE_1__.ThemeModule] }); })();
+
+
+/***/ }),
+
+/***/ 32610:
+/*!***********************************************************!*\
+  !*** ./src/app/auth/services/auth-interceptor.service.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AuthInterceptorService": () => (/* binding */ AuthInterceptorService)
+/* harmony export */ });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 3184);
+
+class AuthInterceptorService {
+    intercept(req, next) {
+        const token = localStorage.getItem('token');
+        const authReq = req.clone({
+            headers: req.headers.set('Authorization', `Bearer ${token}`),
+        });
+        console.log(authReq);
+        return next.handle(authReq);
+    }
+}
+AuthInterceptorService.ɵfac = function AuthInterceptorService_Factory(t) { return new (t || AuthInterceptorService)(); };
+AuthInterceptorService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AuthInterceptorService, factory: AuthInterceptorService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -4685,9 +4725,8 @@ class AuthService {
         return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user`, formData);
     }
     validarToken() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/renew`, {
-            headers: { 'x-token': this.token },
-        }).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((resp) => {
+        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/renew`)
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((resp) => {
             this.usuario = resp.usuario;
             localStorage.setItem('token', resp.token);
             return true;
