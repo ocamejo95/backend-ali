@@ -7,10 +7,11 @@ import UserService from "../services/userService";
 
 @Service()
 class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
   async getAllUsers(res: Response) {
-    const resultFind = await userModel.find();
+    const resultFind = await userModel.find().select("-password");
     return res.json({ Result: "Get User", resultFind });
   }
 
@@ -47,7 +48,6 @@ class UserController {
 
       //Respuesta en un JSON
       res.json({ user });
-
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error inesperado... revisar logs" });
@@ -55,34 +55,30 @@ class UserController {
   }
 
   async updateUser(req: Request, res: Response) {
-        const uid = req.params.id;
+    const uid = req.params.id;
 
     try {
+      const usuarioDB = await userModel.findById(uid);
+      if (!usuarioDB) {
+        return res.status(404).json({ message: "No se encontro el usuario" });
+      }
 
-        const usuarioDB = await userModel.findById(uid);
-        if (!usuarioDB) {
-            return res.status(404).json({message: 'No se encontro el usuario'});
+      const { password, username, email, name } = req.body;
+      if (usuarioDB.email !== email) {
+        const emailExiste = await userModel.findOne({ email });
+        if (emailExiste) {
+          return res.status(400).json({ message: "Ya existe un usuario con ese email" });
         }
+      }
 
-        const { password, username, email, name } = req.body;
-        if (usuarioDB.email !== email) {
-
-            const emailExiste = await userModel.findOne({email})
-            if (emailExiste) {
-                return res.status(400).json({message: 'Ya existe un usuario con ese email'});
-            }
-        }
-        
-
-        const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, {new: true});
-        res.status(200).json({message: 'ok', userUpdate});
+      const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, { new: true });
+      res.status(200).json({ message: "ok", userUpdate });
 
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({message: 'Error inesperado... revisar logs'});
+      console.log(error);
+      res.status(500).json({ message: "Error inesperado... revisar logs" });
     }
-
   }
 
   async deleteUser(req: Request, res: Response) {
