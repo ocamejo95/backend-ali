@@ -100,12 +100,12 @@ class UserController {
       const userDB = await userModel.findById(id);
       //Verificar que el usuario exista por el id
       if (!userDB) {
-        return res.status(400).json({ message: "Usuario no existe" });
+        return res.status(400).json({ message: "User Not Exit!" });
       }
 
       //Verificar la confirmacion del password
       if (password !== r_password) {
-        return res.status(400).json({ message: "No son iguales los password" });
+        return res.status(400).json({ message: "Password Confirmation is Wrong!" });
       }
 
       //Comparar Password
@@ -113,7 +113,7 @@ class UserController {
       if (!validarPassword) {
         return res
           .status(404)
-          .json({ message: "La contraseña actual es incorrecta" });
+          .json({ message: "Password is Wrong!" });
       }
 
       //Encriptar el password
