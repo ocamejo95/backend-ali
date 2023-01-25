@@ -30,4 +30,8 @@ export const userRoute = (app: Application): void => {
     const deleteUser = userController.deleteUser(req, res);
     console.log("Delete Successful");
   });
+
+  app.post("/user/changePassword/:id", valitor, (req, res) => {
+    userController.changePassword(req, res);
+  });
 };

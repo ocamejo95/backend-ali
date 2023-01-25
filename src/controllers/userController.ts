@@ -7,8 +7,7 @@ import UserService from "../services/userService";
 
 @Service()
 class UserController {
-  constructor(private readonly userService: UserService) {
-  }
+  constructor(private readonly userService: UserService) {}
 
   async getAllUsers(res: Response) {
     const resultFind = await userModel.find().select("-password");
@@ -67,14 +66,16 @@ class UserController {
       if (usuarioDB.email !== email) {
         const emailExiste = await userModel.findOne({ email });
         if (emailExiste) {
-          return res.status(400).json({ message: "Ya existe un usuario con ese email" });
+          return res
+            .status(400)
+            .json({ message: "Ya existe un usuario con ese email" });
         }
       }
 
-      const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, { new: true });
+      const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, {
+        new: true,
+      });
       res.status(200).json({ message: "ok", userUpdate });
-
-
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error inesperado... revisar logs" });
@@ -88,6 +89,44 @@ class UserController {
       return res.status(204).json({ Result: "Delete User" });
     } else {
       return res.json({ Result: "Format Id Incorrecto" });
+    }
+  }
+
+  async changePassword(req: Request, res: Response) {
+    const id = req.params.id;
+    const { c_password, password, r_password } = req.body;
+
+    try {
+      const userDB = await userModel.findById(id);
+      //Verificar que el usuario exista por el id
+      if (!userDB) {
+        return res.status(400).json({ message: "Usuario no existe" });
+      }
+
+      //Verificar la confirmacion del password
+      if (password !== r_password) {
+        return res.status(400).json({ message: "No son iguales los password" });
+      }
+
+      //Comparar Password
+      const validarPassword = bcrypt.compareSync(c_password, userDB.password);
+      if (!validarPassword) {
+        return res
+          .status(404)
+          .json({ message: "La contraseña actual es incorrecta" });
+      }
+
+      //Encriptar el password
+      const salt = bcrypt.genSaltSync(10);
+      userDB.password = bcrypt.hashSync(password, salt);
+
+      //Guardar el nuevo password en la BD
+      await userDB.save();
+
+      return res.json({ message: "Ok" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error inesperado... revisar logs" });
     }
   }
 }
