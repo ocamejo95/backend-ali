@@ -328,7 +328,7 @@ if (objCtr.defineProperty) {
 "use strict";
 
 /**
- * @license Angular v14.2.0-next.0
+ * @license Angular v14.0.0-next.5
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1080,7 +1080,7 @@ const wrapFn = function (event) {
     const listener = target[eventNameSymbol];
     let result;
     if (isBrowser && target === internalWindow && event.type === 'error') {
-        // window.onerror have different signature
+        // window.onerror have different signiture
         // https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror#window.onerror
         // and onerror callback will prevent default when callback return true
         const errorEvent = event;
@@ -1125,8 +1125,8 @@ function patchProperty(obj, prop, prototype) {
     delete desc.value;
     const originalDescGet = desc.get;
     const originalDescSet = desc.set;
-    // slice(2) cuz 'onclick' -> 'click', etc
-    const eventName = prop.slice(2);
+    // substr(2) cuz 'onclick' -> 'click', etc
+    const eventName = prop.substr(2);
     let eventNameSymbol = zoneSymbolEventNames$1[eventName];
     if (!eventNameSymbol) {
         eventNameSymbol = zoneSymbolEventNames$1[eventName] = zoneSymbol('ON_PROPERTY' + eventName);
@@ -1199,7 +1199,7 @@ function patchOnProperties(obj, properties, prototype) {
     else {
         const onProperties = [];
         for (const prop in obj) {
-            if (prop.slice(0, 2) == 'on') {
+            if (prop.substr(0, 2) == 'on') {
                 onProperties.push(prop);
             }
         }
@@ -1752,9 +1752,7 @@ Zone.__load_patch('ZoneAwarePromise', (global, Zone, api) => {
             promise[symbolState] = UNRESOLVED;
             promise[symbolValue] = []; // queue;
             try {
-                const onceWrapper = once();
-                executor &&
-                    executor(onceWrapper(makeResolver(promise, RESOLVED)), onceWrapper(makeResolver(promise, REJECTED)));
+                executor && executor(makeResolver(promise, RESOLVED), makeResolver(promise, REJECTED));
             }
             catch (error) {
                 resolvePromise(promise, false, error);
@@ -1767,16 +1765,7 @@ Zone.__load_patch('ZoneAwarePromise', (global, Zone, api) => {
             return ZoneAwarePromise;
         }
         then(onFulfilled, onRejected) {
-            var _a;
-            // We must read `Symbol.species` safely because `this` may be anything. For instance, `this`
-            // may be an object without a prototype (created through `Object.create(null)`); thus
-            // `this.constructor` will be undefined. One of the use cases is SystemJS creating
-            // prototype-less objects (modules) via `Object.create(null)`. The SystemJS creates an empty
-            // object and copies promise properties into that object (within the `getOrCreateLoad`
-            // function). The zone.js then checks if the resolved value has the `then` method and invokes
-            // it with the `value` context. Otherwise, this will throw an error: `TypeError: Cannot read
-            // properties of undefined (reading 'Symbol(Symbol.species)')`.
-            let C = (_a = this.constructor) === null || _a === void 0 ? void 0 : _a[Symbol.species];
+            let C = this.constructor[Symbol.species];
             if (!C || typeof C !== 'function') {
                 C = this.constructor || ZoneAwarePromise;
             }
@@ -1794,9 +1783,7 @@ Zone.__load_patch('ZoneAwarePromise', (global, Zone, api) => {
             return this.then(null, onRejected);
         }
         finally(onFinally) {
-            var _a;
-            // See comment on the call to `then` about why thee `Symbol.species` is safely accessed.
-            let C = (_a = this.constructor) === null || _a === void 0 ? void 0 : _a[Symbol.species];
+            let C = this.constructor[Symbol.species];
             if (!C || typeof C !== 'function') {
                 C = ZoneAwarePromise;
             }
@@ -2223,7 +2210,7 @@ function patchEventTarget(_global, api, apis, patchOptions) {
                 const passive = passiveSupported && !!passiveEvents && passiveEvents.indexOf(eventName) !== -1;
                 const options = buildEventListenerOptions(arguments[2], passive);
                 if (unpatchedEvents) {
-                    // check unpatched list
+                    // check upatched list
                     for (let i = 0; i < unpatchedEvents.length; i++) {
                         if (eventName === unpatchedEvents[i]) {
                             if (passive) {
@@ -2532,32 +2519,18 @@ function patchCallbacks(api, target, targetName, method, callbacks) {
             callbacks.forEach(function (callback) {
                 const source = `${targetName}.${method}::` + callback;
                 const prototype = opts.prototype;
-                // Note: the `patchCallbacks` is used for patching the `document.registerElement` and
-                // `customElements.define`. We explicitly wrap the patching code into try-catch since
-                // callbacks may be already patched by other web components frameworks (e.g. LWC), and they
-                // make those properties non-writable. This means that patching callback will throw an error
-                // `cannot assign to read-only property`. See this code as an example:
-                // https://github.com/salesforce/lwc/blob/master/packages/@lwc/engine-core/src/framework/base-bridge-element.ts#L180-L186
-                // We don't want to stop the application rendering if we couldn't patch some
-                // callback, e.g. `attributeChangedCallback`.
-                try {
-                    if (prototype.hasOwnProperty(callback)) {
-                        const descriptor = api.ObjectGetOwnPropertyDescriptor(prototype, callback);
-                        if (descriptor && descriptor.value) {
-                            descriptor.value = api.wrapWithCurrentZone(descriptor.value, source);
-                            api._redefineProperty(opts.prototype, callback, descriptor);
-                        }
-                        else if (prototype[callback]) {
-                            prototype[callback] = api.wrapWithCurrentZone(prototype[callback], source);
-                        }
+                if (prototype.hasOwnProperty(callback)) {
+                    const descriptor = api.ObjectGetOwnPropertyDescriptor(prototype, callback);
+                    if (descriptor && descriptor.value) {
+                        descriptor.value = api.wrapWithCurrentZone(descriptor.value, source);
+                        api._redefineProperty(opts.prototype, callback, descriptor);
                     }
                     else if (prototype[callback]) {
                         prototype[callback] = api.wrapWithCurrentZone(prototype[callback], source);
                     }
                 }
-                catch (_a) {
-                    // Note: we leave the catch block empty since there's no way to handle the error related
-                    // to non-writable property.
+                else if (prototype[callback]) {
+                    prototype[callback] = api.wrapWithCurrentZone(prototype[callback], source);
                 }
             });
         }

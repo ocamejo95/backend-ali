@@ -42880,5 +42880,8 @@ nb-select.size-medium button nb-icon {
 .navigation .link nb-icon {
   display: none !important;
 }
+.swal2-styled.swal2-confirm {
+  background-color: #3366FF !important;
+}
 
 /*# sourceMappingURL=styles.css.map*/
