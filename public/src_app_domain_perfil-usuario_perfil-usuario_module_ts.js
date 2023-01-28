@@ -344,10 +344,10 @@ class UserService {
         return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user`);
     }
     getUserById(id) {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/${id}`);
+        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/${id}`);
     }
     updateUser(id, user) {
-        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/${id}`, user);
+        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/update/${id}`, user);
     }
     deleteUser(id) {
         return this.http.delete(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/${id}`);

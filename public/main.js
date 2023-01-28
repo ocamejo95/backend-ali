@@ -4708,16 +4708,16 @@ class AuthService {
         this.usuario = new _models_user__WEBPACK_IMPORTED_MODULE_1__.User();
     }
     login(formData) {
-        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/login`, formData)
+        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/auth/login`, formData)
             .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.tap)((resp) => {
             localStorage.setItem('token', resp.token);
         }));
     }
     register(formData) {
-        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user`, formData);
+        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/create`, formData);
     }
     validarToken() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/renew`)
+        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/auth/renew`)
             .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((resp) => {
             this.usuario = resp.usuario;
             localStorage.setItem('token', resp.token);
@@ -4785,7 +4785,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 const environment = {
     production: false,
-    API_INTERNET: 'https://backend-express-seguros.herokuapp.com',
+    API_INTERNET: 'https://backend-express-seguros.herokuapp.com/api',
 };
 
 
