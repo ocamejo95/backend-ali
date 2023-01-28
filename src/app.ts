@@ -2,13 +2,14 @@ import "reflect-metadata";
 
 import cors from "cors";
 import express from "express";
-import path from "path";
 
 import apiRoutes from "./controllers/api";
 import authRoutes from "./routes/authRoutes";
 import fileRoutes from "./routes/fileRoutes";
 import userRoutes from "./routes/userRoutes";
 import { connectDB } from "./util/connection";
+import path from "path";
+
 
 // Create Express server
 const app = express();
@@ -36,7 +37,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 
 app.use("*", (req, res) => {
-  res.sendfile("./public/index.html");
+  res.sendFile(path.resolve("./public/index.html"));
 });
 
 export default app;
