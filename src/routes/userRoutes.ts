@@ -8,27 +8,27 @@ const userController = Container.get(UserController);
 
 const router = Router();
 
-router.get("/user", valitor, (req, res) => {
+router.get("/all", valitor, (req, res) => {
   userController.getAllUsers(res);
 });
 
-router.get("/user/:id", (req, res) => {
+router.get("/one/:id", (req, res) => {
   userController.getUser(req, res);
 });
 
-router.post("/user", (req, res) => {
+router.post("/create", (req, res) => {
   userController.createUser(req, res);
 });
 
-router.put("/user/:id", (req, res) => {
+router.put("/update/:id", (req, res) => {
   userController.updateUser(req, res);
 });
 
-router.delete("/user/:id", valitor, (req, res) => {
+router.delete("/delete/:id", valitor, (req, res) => {
   userController.deleteUser(req, res);
 });
 
-router.post("/user/changePassword/:id", valitor, (req, res) => {
+router.post("/changePassword/:id", valitor, (req, res) => {
   userController.changePassword(req, res);
 });
 
