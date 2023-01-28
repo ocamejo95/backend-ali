@@ -4,10 +4,10 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 
-import { loadApiEndpoints } from "./controllers/api";
-import { authRoute } from "./routes/authRoutes";
-import { fileRoute } from "./routes/fileRoutes";
-import { userRoute } from "./routes/userRoutes";
+import apiRoutes from "./controllers/api";
+import authRoutes from "./routes/authRoutes";
+import fileRoutes from "./routes/fileRoutes";
+import userRoutes from "./routes/userRoutes";
 import { connectDB } from "./util/connection";
 
 // Create Express server
@@ -15,22 +15,28 @@ const app = express();
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
+
+//Lectura y parseo del body
 app.use(express.json());
+
+//Configurar cors
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
+//Coneccion a la BD
 connectDB();
 
 //Directorio publico
 app.use(express.static("public"));
 
-loadApiEndpoints(app);
-userRoute(app);
-fileRoute(app);
-authRoute(app);
+//Rutas
+app.use("/api", apiRoutes);
+app.use("/api/file", fileRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use("*", (req, res) => {
-  res.sendfile(path.resolve(__dirname, "public/index.html"));
+  res.sendfile("./public/index.html");
 });
 
 export default app;

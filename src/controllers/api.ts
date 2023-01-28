@@ -1,9 +1,11 @@
-import { Application, Request, Response } from "express";
+import { Request, Response, Router } from "express";
 
 import CoursesData from "../../data/courses.json";
 
-export const loadApiEndpoints = (app: Application): void => {
-  app.get("/api", (req: Request, res: Response) => {
-    return res.status(200).send(CoursesData);
-  });
-};
+const router = Router();
+
+router.get("/info", (req: Request, res: Response) => {
+  return res.status(200).send(CoursesData);
+});
+
+export default router;

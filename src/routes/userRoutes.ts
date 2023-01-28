@@ -1,37 +1,35 @@
-import express, { Application } from "express";
+import { Router } from "express";
 import Container from "typedi";
 
 import UserController from "../controllers/userController";
 import { valitor } from "../middlewares/validator-jwt";
 
-export const userRoute = (app: Application): void => {
-  app.use(express.json());
+const userController = Container.get(UserController);
 
-  const userController = Container.get(UserController);
+const router = Router();
 
-  app.get("/user", valitor, (req, res) => {
-    const find = userController.getAllUsers(res);
-  });
+router.get("/user", valitor, (req, res) => {
+  userController.getAllUsers(res);
+});
 
-  app.get("/user/:id", (req, res) => {
-    const findOne = userController.getUser(req, res);
-  });
+router.get("/user/:id", (req, res) => {
+  userController.getUser(req, res);
+});
 
-  app.post("/user", (req, res) => {
-    const insert = userController.createUser(req, res);
-  });
+router.post("/user", (req, res) => {
+  userController.createUser(req, res);
+});
 
-  app.put("/user/:id", (req, res) => {
-    const update = userController.updateUser(req, res);
-    console.log("Edit Successful");
-  });
+router.put("/user/:id", (req, res) => {
+  userController.updateUser(req, res);
+});
 
-  app.delete("/user/:id", valitor, (req, res) => {
-    const deleteUser = userController.deleteUser(req, res);
-    console.log("Delete Successful");
-  });
+router.delete("/user/:id", valitor, (req, res) => {
+  userController.deleteUser(req, res);
+});
 
-  app.post("/user/changePassword/:id", valitor, (req, res) => {
-    userController.changePassword(req, res);
-  });
-};
+router.post("/user/changePassword/:id", valitor, (req, res) => {
+  userController.changePassword(req, res);
+});
+
+export default router;
