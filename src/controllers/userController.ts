@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { isEmpty } from "class-validator";
 import { Request, Response } from "express";
 import { Service } from "typedi";
 
@@ -55,27 +56,32 @@ class UserController {
 
   async updateUser(req: Request, res: Response) {
     const uid = req.params.id;
+    const { password, username, email, name } = req.body;
 
     try {
       const usuarioDB = await userModel.findById(uid);
       if (!usuarioDB) {
-        return res.status(404).json({ message: "No se encontro el usuario" });
+        return res.status(404).json({ message: "User not found" });
       }
 
-      const { password, username, email, name } = req.body;
       if (usuarioDB.email !== email) {
         const emailExiste = await userModel.findOne({ email });
         if (emailExiste) {
-          return res
-            .status(400)
-            .json({ message: "Ya existe un usuario con ese email" });
+          return res.status(402).json({ message: "That email already exists" });
         }
       }
+      if (isEmpty(password)) {
+        const { password, ...object } = req.body;
+        const userUpdate = await userModel.findByIdAndUpdate(uid, object, {
+          new: true,
+        });
+      } else {
+        const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, {
+          new: true,
+        });
+      }
 
-      const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, {
-        new: true,
-      });
-      res.status(200).json({ message: "ok", userUpdate });
+      res.status(200).json({ message: "User Update" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error inesperado... revisar logs" });
