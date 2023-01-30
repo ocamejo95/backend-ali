@@ -9,7 +9,7 @@ const userController = Container.get(UserController);
 const router = Router();
 
 router.get("/all", valitor, (req, res) => {
-  userController.getAllUsers(res);
+  userController.getAllUsers(req, res);
 });
 
 router.get("/one/:id", (req, res) => {

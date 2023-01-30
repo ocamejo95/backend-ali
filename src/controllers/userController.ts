@@ -8,20 +8,27 @@ import UserService from "../services/userService";
 
 @Service()
 class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
-  async getAllUsers(res: Response) {
-    const resultFind = await userModel.find().select("-password");
-    return res.json({ Result: "Get User", resultFind });
+  async getAllUsers(req: Request, res: Response) {
+    try {
+      const listUsers = await userModel.find().select("-password");
+      return res.status(200).json({ Result: "List Users", listUsers });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error inesperado... revisar logs" });
+    }
   }
 
   async getUser(req: Request, res: Response) {
-    const user = req.params.id;
-    if (user.length == 24) {
-      const resultGetUser = await this.userService.getUser(user);
-      return res.json(resultGetUser);
-    } else {
-      return res.status(200).json({ Result: "Format Id Incorrecto" });
+    const id = req.params.id;
+    try {
+      const user = await userModel.findById(id).select("-password");
+      return res.status(200).json({ Result: "Get User", user });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error inesperado... revisar logs" });
     }
   }
 
@@ -73,11 +80,11 @@ class UserController {
       if (isEmpty(password)) {
         const { password, ...object } = req.body;
         const userUpdate = await userModel.findByIdAndUpdate(uid, object, {
-          new: true,
+          new: true
         });
       } else {
         const userUpdate = await userModel.findByIdAndUpdate(uid, req.body, {
-          new: true,
+          new: true
         });
       }
 
@@ -89,12 +96,14 @@ class UserController {
   }
 
   async deleteUser(req: Request, res: Response) {
-    const user = req.params.id;
-    if (user.length == 24) {
-      const resultDelete = this.userService.deleteUser(req.params.id);
-      return res.status(204).json({ Result: "Delete User" });
-    } else {
-      return res.json({ Result: "Format Id Incorrecto" });
+    const id = req.params.id;
+
+    try {
+      const deleteUser = await userModel.findByIdAndDelete(id);
+      return res.status(200).json({ message: "Delete User", deleteUser });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error inesperado... revisar logs" });
     }
   }
 
