@@ -8,13 +8,12 @@ import UserService from "../services/userService";
 
 @Service()
 class UserController {
-  constructor(private readonly userService: UserService) {
-  }
+  constructor(private readonly userService: UserService) {}
 
   async getAllUsers(req: Request, res: Response) {
     try {
       const listUsers = await userModel.find().select("-password");
-      return res.status(200).json({ Result: "List Users", listUsers });
+      return res.status(200).json({ message: "List Users", listUsers });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error inesperado... revisar logs" });
@@ -25,7 +24,7 @@ class UserController {
     const id = req.params.id;
     try {
       const user = await userModel.findById(id).select("-password");
-      return res.status(200).json({ Result: "Get User", user });
+      return res.status(200).json({ message: "Get User", user });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error inesperado... revisar logs" });
