@@ -12,7 +12,7 @@ router.get("/all", valitor, (req, res) => {
   userController.getAllUsers(req, res);
 });
 
-router.get("/one/:id", (req, res) => {
+router.get("/one/:id", valitor, (req, res) => {
   userController.getUser(req, res);
 });
 
@@ -20,7 +20,7 @@ router.post("/create", (req, res) => {
   userController.createUser(req, res);
 });
 
-router.put("/update/:id", (req, res) => {
+router.put("/update/:id", valitor, (req, res) => {
   userController.updateUser(req, res);
 });
 

@@ -14,9 +14,7 @@ export const valitor = (req, res, next) => {
 
     const bearerToken = bearer[1];
 
-    const id = jwt.verify(bearerToken, "PUTO");
-
-    req.uid = id;
+    req.uid = jwt.verify(bearerToken, "PUTO");
 
     next();
   } catch (err) {
