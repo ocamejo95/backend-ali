@@ -8,7 +8,8 @@ import UserService from "../services/userService";
 
 @Service()
 class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
   async getAllUsers(req: Request, res: Response) {
     try {
@@ -99,7 +100,7 @@ class UserController {
 
     try {
       const deleteUser = await userModel.findByIdAndDelete(id);
-      return res.status(200).json({ message: "Delete User", deleteUser });
+      return res.status(200).json({ message: "Delete User" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error inesperado... revisar logs" });
