@@ -61,7 +61,7 @@ export class AuthController {
     const token = await generarJWT(uid.uid);
 
     //Obtener usuario por uid
-    const usuario = await userModel.findById(uid.uid);
+    const usuario = await userModel.findById(uid.uid).select("-password");
 
     res.status(200).json({ message: "New token", usuario, token });
   }

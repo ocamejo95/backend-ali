@@ -12,7 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --verbose"
   },
-  "author": "",
+  "author": "Ali Corrales",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.13",
