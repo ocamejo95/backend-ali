@@ -318,48 +318,6 @@ ProfileComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3_
     } }, directives: [_nebular_theme__WEBPACK_IMPORTED_MODULE_5__.NbCardComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_5__.NbCardBodyComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_5__.NbTabsetComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_5__.NbTabComponent, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormGroupDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.DefaultValueAccessor, _nebular_theme__WEBPACK_IMPORTED_MODULE_5__.NbInputDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormControlName, _angular_common__WEBPACK_IMPORTED_MODULE_6__.NgIf, _nebular_theme__WEBPACK_IMPORTED_MODULE_5__.NbButtonComponent], styles: [".label[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n\n.caption[_ngcontent-%COMP%] {\n  margin-top: 0.5rem;\n  margin-bottom: 0;\n}\n\n.card-profile[_ngcontent-%COMP%] {\n  text-align: center;\n  padding-top: 25px;\n}\n\nimg[_ngcontent-%COMP%] {\n  width: 145px;\n  margin-bottom: 13px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInByb2ZpbGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFBO0FBQ0Y7O0FBRUE7RUFDRSxrQkFBQTtFQUNBLGdCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxZQUFBO0VBQ0EsbUJBQUE7QUFDRiIsImZpbGUiOiJwcm9maWxlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxhYmVsIHtcclxuICBmb250LXNpemU6IDE0cHg7XHJcbn1cclxuXHJcbi5jYXB0aW9uIHtcclxuICBtYXJnaW4tdG9wOiAwLjVyZW07XHJcbiAgbWFyZ2luLWJvdHRvbTogMDtcclxufVxyXG5cclxuLmNhcmQtcHJvZmlsZSB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIHBhZGRpbmctdG9wOiAyNXB4O1xyXG59XHJcblxyXG5pbWcge1xyXG4gIHdpZHRoOiAxNDVweDtcclxuICBtYXJnaW4tYm90dG9tOiAxM3B4O1xyXG59XHJcbiJdfQ== */"] });
 
 
-/***/ }),
-
-/***/ 22573:
-/*!***********************************************************!*\
-  !*** ./src/app/domain/seguridad/services/user.service.ts ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UserService": () => (/* binding */ UserService)
-/* harmony export */ });
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../environments/environment */ 92340);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 3184);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ 28784);
-
-
-
-class UserService {
-    constructor(http) {
-        this.http = http;
-    }
-    getAllUser() {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user`);
-    }
-    getUserById(id) {
-        return this.http.get(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/${id}`);
-    }
-    updateUser(id, user) {
-        return this.http.put(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/update/${id}`, user);
-    }
-    deleteUser(id) {
-        return this.http.delete(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/${id}`);
-    }
-    changePassword(id, data) {
-        return this.http.post(`${_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.API_INTERNET}/user/changePassword/${id}`, data);
-    }
-}
-UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpClient)); };
-UserService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
-
-
 /***/ })
 
 }]);

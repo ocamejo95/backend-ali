@@ -153,11 +153,13 @@ class UploadFilesComponent {
         this.file3 = event.target.files[0];
     }
     submitFiles() {
-        this.uploadFilesService.sendFiles(this.file1, this.file2, this.file3);
+        if (this.uploadFilesForm.valid) {
+            this.uploadFilesService.sendFiles(this.file1, this.file2, this.file3);
+        }
     }
 }
 UploadFilesComponent.ɵfac = function UploadFilesComponent_Factory(t) { return new (t || UploadFilesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_company_services_upload_files_service__WEBPACK_IMPORTED_MODULE_0__.UploadFilesService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__.FormBuilder)); };
-UploadFilesComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: UploadFilesComponent, selectors: [["ngx-upload-files"]], decls: 29, vars: 2, consts: [[1, "row"], [1, "col-lg-8"], [3, "formGroup"], [1, "form-group"], [1, "label"], ["formControlName", "fil1", "fullWidth", "", "nbInput", "", "type", "file", 3, "change"], ["formControlName", "fil2", "fullWidth", "", "nbInput", "", "type", "file", 3, "change"], ["formControlName", "fil3", "fullWidth", "", "nbInput", "", "type", "file", 3, "change"], ["nbButton", "", "status", "primary", "type", "submit", 3, "disabled", "click"], [1, "col-lg-4"], ["selected", "1"], ["value", "1"]], template: function UploadFilesComponent_Template(rf, ctx) { if (rf & 1) {
+UploadFilesComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: UploadFilesComponent, selectors: [["ngx-upload-files"]], decls: 29, vars: 1, consts: [[1, "row"], [1, "col-lg-8"], [3, "formGroup"], [1, "form-group"], [1, "label"], ["formControlName", "fil1", "fullWidth", "", "nbInput", "", "type", "file", 3, "change"], ["formControlName", "fil2", "fullWidth", "", "nbInput", "", "type", "file", 3, "change"], ["formControlName", "fil3", "fullWidth", "", "nbInput", "", "type", "file", 3, "change"], ["nbButton", "", "status", "primary", "type", "submit", 3, "click"], [1, "col-lg-4"], ["selected", "1"], ["value", "1"]], template: function UploadFilesComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "nb-card")(3, "nb-card-header");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](4, "Upload Files");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -192,8 +194,6 @@ UploadFilesComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formGroup", ctx.uploadFilesForm);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](13);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("disabled", ctx.uploadFilesForm.invalid);
     } }, directives: [_nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbCardComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbCardHeaderComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbCardBodyComponent, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_1__.FormGroupDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_1__.DefaultValueAccessor, _nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbInputDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_1__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_1__.FormControlName, _nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbButtonComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbSelectComponent, _nebular_theme__WEBPACK_IMPORTED_MODULE_3__.NbOptionComponent], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1cGxvYWQtZmlsZXMuY29tcG9uZW50LnNjc3MifQ== */"] });
 
 
@@ -256,11 +256,7 @@ const MENU_ITEMS = [
     //   children: [
     //     {
     //       title: 'Manage Users',
-    //       link: '/pages/seguridad/manage-users',
-    //     },
-    //     {
-    //       title: 'Manage Roles',
-    //       link: '/pages/seguridad/manage-roles',
+    //       link: '/domain/seguridad/manage-users',
     //     },
     //   ],
     // },
@@ -307,12 +303,12 @@ const routes = [
             },
             {
                 path: 'perfil-usuario',
-                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_sweetalert2_dist_sweetalert2_all_js"), __webpack_require__.e("src_app_domain_perfil-usuario_perfil-usuario_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./perfil-usuario/perfil-usuario.module */ 7028))
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_sweetalert2_dist_sweetalert2_all_js"), __webpack_require__.e("common"), __webpack_require__.e("src_app_domain_perfil-usuario_perfil-usuario_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./perfil-usuario/perfil-usuario.module */ 7028))
                     .then(m => m.PerfilUsuarioModule),
             },
             {
                 path: 'seguridad',
-                loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_domain_seguridad_seguridad_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./seguridad/seguridad.module */ 79034))
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_ng2-smart-table___ivy_ngcc___fesm2015_ng2-smart-table_js"), __webpack_require__.e("default-node_modules_sweetalert2_dist_sweetalert2_all_js"), __webpack_require__.e("default-node_modules_tslib_tslib_es6_js"), __webpack_require__.e("common"), __webpack_require__.e("src_app_domain_seguridad_seguridad_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./seguridad/seguridad.module */ 79034))
                     .then(m => m.SeguridadModule),
             },
             {
